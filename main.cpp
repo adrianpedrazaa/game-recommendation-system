@@ -1,8 +1,42 @@
-#include <iostream> 
-using namespace std;
+#include "headers.h"
 void loadData()
 {
-    
+
+    ifstream readF;
+    bool exists = false;
+    string fileName;
+    string line;
+    string gName;
+    string gDesc;
+    string gGenre;
+    float gRate;
+
+    //Checks if file exists loops until valid file is entered.
+    while(exists == false)
+    {
+        cout << "\nPlease enter the file name: ";
+        cin >> fileName;
+        readF.open(fileName);
+        if(readF)
+        {
+            exists = true;
+        }
+        else
+        {
+            cout << "\nFile not found";
+            readF.close();
+        }
+    }
+
+    while(!readF.eof())
+    {
+        getline(readF, line);
+        for(int i = 0; i < line.size(); ++i)
+        {
+            
+        }
+    }
+    readF.close();
 }
 int main()
 {
@@ -18,10 +52,10 @@ int main()
         switch(selection)
         {
             case 1:
-                load
+                loadData();
         }
 
 
     }
-    return 0    
+    return 0;    
 }
