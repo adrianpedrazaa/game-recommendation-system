@@ -9,8 +9,9 @@ void loadData()
     string gName;
     string gDesc;
     string gGenre;
+    string toStore;
     float gRate;
-
+    int itter1 = 0, itter2;
     //Checks if file exists loops until valid file is entered.
     while(exists == false)
     {
@@ -31,9 +32,26 @@ void loadData()
     while(!readF.eof())
     {
         getline(readF, line);
-        for(int i = 0; i < line.size(); ++i)
+        itter1 = 0;
+        while(itter1 < 4)
         {
-            
+            itter2 = 0;
+            while(line[itter2] != ',')
+            {
+                toStore += line[itter2];
+                itter2++;
+            }
+            ++itter1;
+            ++itter2;
+            if(itter1 == 0)
+            {
+                gName = toStore;
+            }
+            else if(itter1 == 1)
+            {
+                
+            }
+
         }
     }
     readF.close();
