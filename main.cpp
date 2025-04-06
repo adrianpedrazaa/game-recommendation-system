@@ -1,5 +1,9 @@
 #include <iostream> 
 using namespace std;
+void loadData()
+{
+    
+}
 int main()
 {
     int selection;
@@ -13,7 +17,8 @@ int main()
             << "4: Quit\n";
         switch(selection)
         {
-
+            case 1:
+                load
         }
 
 
