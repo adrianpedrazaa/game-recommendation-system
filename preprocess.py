@@ -1,30 +1,43 @@
 import pandas as pd
 import re
+import csv
 
-# 1) Read only the "description" column from the CSV
-# Replace "dataset.csv" with the actual path/filename of your dataset
-# Replace "description" with the exact column name you want to read
-df = pd.read_csv(r"C:\Users\Sero0\OneDrive - UNT System\games.csv", usecols=["description"])
-
-# 'df' now contains just one column: df["description"]
+# 1) Read only the "Tags" and "Title" columns from the CSV
+df = pd.read_csv(
+    r"C:\Users\Sero0\Downloads\Steam Trends 2023 by @evlko and @Sadari - Games Data.csv",
+    usecols=["Tags", "Title", "Reviews Score Fancy"],
+    encoding="latin1"
+)
 
 # 2) Basic text preprocessing
 def preprocess_text(text):
-    # Convert to lowercase
+    text = str(text)  # Ensure the text is a string
     text = text.lower()
-    # Remove punctuation (keep words, digits, and whitespace only)
-    # You can tweak the regex as you see fit
-    text = re.sub(r"[^\w\s]", "", text)
-    # Strip extra whitespace
+    text = re.sub(r"[^\w\s,]", "", text)  # keep commas
     text = text.strip()
     return text
 
-# Apply the preprocessing function to each description
-df["description_clean"] = df["description"].apply(preprocess_text)
+# Apply the preprocessing function
+df["tags_clean"] = df["Tags"].apply(preprocess_text)
+df["names_clean"] = df["Title"].apply(preprocess_text)
+df["reviews_score_clean"] = df["Reviews Score Fancy"].apply(preprocess_text)
 
-# 3) If you want the cleaned text as a list
-descriptions = df["description_clean"].tolist()
+# 3) Convert cleaned columns to lists
+tags = df["tags_clean"].tolist()
+titles = df["names_clean"].tolist()
+reviews_scores = df["reviews_score_clean"].tolist()
 
-# Print the first few cleaned descriptions
-for i in range(3):
-    print(descriptions[i])
+# 4) Combine into a list of tuples for demonstration
+combined_list = []
+for i in range(100):
+    combined_list.append((titles[i], reviews_scores[i], tags[i]))
+
+print(combined_list)
+
+# 5) Save combined_list to a CSV file
+with open("cleaned_game_data.csv", "w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    # If you want headers, write them first
+    writer.writerow(["Title", "Reviews Score Fancy", "Tags"])
+    # Write each tuple (title, tag) to the CSV
+    writer.writerows(combined_list)
