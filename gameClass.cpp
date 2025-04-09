@@ -2,14 +2,27 @@
 GameData::GameData()
 {
     name = "EMPTY";
-    desc = "EMPTY";
-    genre = "EMPTY";
     rating = 0.00;
 }
-GameData::GameData(string nam, string des, string gen, float rat)
+GameData::GameData(int ids, string nam, vector<string> tVec, float rat)
 {
+    id = ids;
     name = nam;
-    desc = des;
-    genre = gen;
+    tags = tVec;
     rating = rat;
+}
+void GameData::print()
+{
+    cout << "\nId: " << id
+         << "\nName: " << name
+         << "\nTags: ";
+    for(unsigned int i = 0; i < tags.size(); ++i)
+    {
+        cout << tags[i];
+        if(i != tags.size() - 1)
+        {
+            cout << ", ";
+        }
+    }
+    cout << "\nRating: " << rating;
 }

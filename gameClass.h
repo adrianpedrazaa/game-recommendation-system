@@ -2,12 +2,13 @@
 class GameData
 {
     public:
+    void print();
     GameData();
-    GameData(string, string, string, float);
+    GameData(int, string, vector<string>, float);
     private:
+        int id;
         string name;
-        string desc;
-        string genre;
+        vector<string> tags;
         float rating;
         
 };

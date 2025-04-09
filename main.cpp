@@ -1,76 +1,117 @@
 #include "headers.h"
+#include "gameClass.h"
+using namespace std;
 void loadData()
 {
 
-    ifstream readF;
+    ifstream ofile;
+    string theFile;
     bool exists = false;
-    string fileName;
     string line;
     string gName;
-    string gDesc;
-    string gGenre;
-    string toStore;
+    vector<string> gTags;
+    string capt;
+    int id = 1;
+    int comCount = 0;
     float gRate;
-    int itter1 = 0, itter2;
-    //Checks if file exists loops until valid file is entered.
+    vector<GameData*> testvec;
     while(exists == false)
     {
         cout << "\nPlease enter the file name: ";
-        cin >> fileName;
-        readF.open(fileName);
-        if(readF)
+        cin >> theFile;
+        ofile.open(theFile);
+        if(ofile)
         {
             exists = true;
+            cout << "\nFile Loaded";
         }
         else
         {
-            cout << "\nFile not found";
-            readF.close();
+            cout << "\nFile Not Found";
         }
     }
 
-    while(!readF.eof())
+    while(!ofile.eof())
     {
-        getline(readF, line);
-        itter1 = 0;
-        while(itter1 < 4)
+        comCount = 0;
+        getline(ofile, line);
+        for(int i = 0; i < line.length(); ++i)
         {
-            itter2 = 0;
-            while(line[itter2] != ',')
+            if(line[i] != ',')
             {
-                toStore += line[itter2];
-                itter2++;
+                capt += line[i];
+                if(i == line.length() - 1)
+                {
+                    gTags.push_back(capt);
+                    capt = "";
+                }
             }
-            ++itter1;
-            ++itter2;
-            if(itter1 == 0)
+            else
             {
-                gName = toStore;
+                ++comCount;
+                if(comCount == 1)
+                {
+                    gName = capt;
+                }
+                else if(comCount == 2)
+                {
+                    gRate = stof(capt);
+                }
+                else if(comCount >= 3)
+                {
+                    gTags.push_back(capt);
+                }
+                capt = "";
             }
-            else if(itter1 == 1)
-            {
-                
-            }
-
         }
+        //Create gameClass object and store in hash table
+        //Add code
+        
+        //temp to test
+        testvec.push_back(new GameData(id, gName, gTags, gRate));
+
+        //Reset temp Variables increment id
+        gTags.clear();
+        ++id;
     }
-    readF.close();
+    ofile.close();
+
+    //Temp to test
+    for(unsigned int i = 0; i < testvec.size(); ++i)
+    {
+        testvec[i]->print();
+    }
+    cout << endl;
+    for(unsigned int i = 0; i < testvec.size(); ++i)
+    {
+        cout << testvec[i] << endl;
+        delete testvec[i];
+        
+    }
+    testvec.clear();
 }
 int main()
 {
+    string aFile;
     int selection;
     bool quit = false;
+    bool exists = false;
     while(quit == false)
     {   
         cout << "Please enter the number of your selection\n"
-            << "1: Load data set\n" 
-            << "2: View games by genre\n"
-            << "3: Search for by feel\n"
-            << "4: Quit\n";
+             << "1: Load data set\n" 
+             << "2: View games by genre\n"
+             << "3: Search for by feel\n"
+             << "4: Quit\n";
+        cin >> selection;
         switch(selection)
         {
             case 1:
                 loadData();
+            break;
+            case 4:
+                quit = true;
+            break;
         }
 
 
