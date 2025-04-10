@@ -1,7 +1,7 @@
 #include "headers.h"
-#include "gameClass.h"
+#include "gameList.h"
 using namespace std;
-void loadData()
+void loadData(GameList &games)
 {
 
     ifstream ofile;
@@ -14,7 +14,10 @@ void loadData()
     int id = 1;
     int comCount = 0;
     float gRate;
-    vector<GameData*> testvec;
+    
+    //Test
+    //vector<GameData*> testvec;
+    
     while(exists == false)
     {
         cout << "\nPlease enter the file name: ";
@@ -66,18 +69,18 @@ void loadData()
         }
         //Create gameClass object and store in hash table
         //Add code
-        
+        games.push_front(new GameData(id, gName, gTags, gRate));
         //temp to test
-        testvec.push_back(new GameData(id, gName, gTags, gRate));
+        //testvec.push_back(new GameData(id, gName, gTags, gRate));
 
         //Reset temp Variables increment id
-        gTags.clear();
+        //gTags.clear();
         ++id;
     }
     ofile.close();
 
     //Temp to test
-    for(unsigned int i = 0; i < testvec.size(); ++i)
+    /*for(unsigned int i = 0; i < testvec.size(); ++i)
     {
         testvec[i]->print();
     }
@@ -89,25 +92,39 @@ void loadData()
         
     }
     testvec.clear();
+    */
+}
+void vgamesMenu(GameList &games)
+{
+    cout << "\nPlease enter the number of your selection"
+         << "\n1:View games by rating"
+         << "\n2:View games alphabetically"
+         << "\n3:View games by a genre"
+         << ": ";
 }
 int main()
 {
+    GameList games;
     string aFile;
     int selection;
     bool quit = false;
     bool exists = false;
     while(quit == false)
     {   
-        cout << "Please enter the number of your selection\n"
+        cout << "\nPlease enter the number of your selection\n"
              << "1: Load data set\n" 
-             << "2: View games by genre\n"
-             << "3: Search for by feel\n"
-             << "4: Quit\n";
+             << "2: View games\n"
+             << "3: Search for game by name\n"            
+             << "4: Quit\n"
+             << ": ";
         cin >> selection;
         switch(selection)
         {
             case 1:
-                loadData();
+                loadData(games);
+            break;
+            case 2:
+                vgamesMenu(games);
             break;
             case 4:
                 quit = true;
