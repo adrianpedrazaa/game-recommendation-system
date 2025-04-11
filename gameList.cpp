@@ -87,25 +87,37 @@ void GameList::genreSearch()
         quicksortAlph();
     }
     //Checks all but last node for genre type
-    while(nodetoCheck->next != head){
+    //Test
+    //int i = 1;
+    //cout << endl << head << endl;
+    while(nodetoCheck->next != head)
+    {
         if(nodetoCheck->vectorSearch(genre) == true)
         {
             nodetoCheck->print();
             correct = false;
         }
         nodetoCheck = nodetoCheck->next;
+        //Test
+        //cout << i << " " << nodetoCheck->next << endl;
+        //++i;
     }
+    //Test
+    //cout << "\n1\n";
     //Checks last node for genre
     if(nodetoCheck->vectorSearch(genre) == true)
     {
         nodetoCheck->print();
         correct = false;
     }
+    //Test
+    //cout << "\n2\n";
     //Displays message if no games of genre found
     if(correct == true)
     {
         cout << "\nNo games of genre: " << genre << " found.\n";
     }
+    return;
 }
 //Searches for game named by the user
 void GameList::nameSearch()
@@ -142,6 +154,7 @@ void GameList::push_front(GameData *newnode)
         newnode->next = oldhead;
         newnode->previous = tail;
         oldhead->previous = newnode;
+        tail->next = head;
     }
     ++size;
 }

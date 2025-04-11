@@ -79,7 +79,7 @@ void loadData(GameList &games)
         //testvec.push_back(new GameData(id, gName, gTags, gRate));
 
         //Reset temp Variables increment id
-        //gTags.clear();
+        gTags.clear();
 
         //Game ID incremented
         ++id;
@@ -162,8 +162,9 @@ void vgamesMenu(GameList &games)
                 games.quicksortAlph();
             }
             games.nameSearch();
+            break;
     }
-
+    return;
 }
 int main()
 {

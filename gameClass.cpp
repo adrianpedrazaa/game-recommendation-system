@@ -38,14 +38,15 @@ void GameData::print()
 //binary search plus its not really worth it with how few genres each game would have
 bool GameData::vectorSearch(string genre)
 {
+    bool found = false;
     for(unsigned int i = 0; i < tags.size(); ++i)
     {
         if(tags[i] == genre)
         {
-            return true;
+            found = true;
         }
     }
-    return false;
+    return found;
 }
 
 
