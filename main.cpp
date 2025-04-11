@@ -107,24 +107,21 @@ void vgamesMenu(GameList &games)
             << "\n4:Search for game by name"
             << "\n: ";
         cin >> choice;
-        while(correct == false)
+        if(cin.fail())
         {
-            if(cin.fail())
+            while(cin.fail())
             {
-                while(cin.fail())
-                {
-                    cin.ignore();
-                }
-                cout << "\nERROR: Invalid Choice\n";
+                cin.ignore();
             }
-            else if(choice < 1 || choice > 4)
-            {
-                cout << "\nERROR: Invalid Choice\n";
-            }
-            else
-            {
-                correct = true;
-            }
+            cout << "\nERROR: Invalid Choice\n";
+        }
+        else if(choice < 1 || choice > 4)
+        {
+            cout << "\nERROR: Invalid Choice\n";
+        }
+        else
+        {
+            correct = true;
         }
     }
     switch(choice)
@@ -201,6 +198,7 @@ int main()
                 quit = true;
             break;
         }
+        correct = false;
     }
     return 0;    
 }
