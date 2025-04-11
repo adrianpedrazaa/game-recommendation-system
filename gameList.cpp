@@ -63,10 +63,8 @@ void GameList::genreSearch()
         cin >> choice;
         if(cin.fail())
         {
-            while(cin.fail())
-            {
-                cin.ignore();
-            }
+            cin.clear();    
+            cin.ignore();
             cout << "\nERROR: Invalid Choice\n";
         }
         else if(choice < 1 || choice > 2)

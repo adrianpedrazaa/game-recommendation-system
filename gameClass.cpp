@@ -5,7 +5,7 @@ GameData::GameData()
     name = "EMPTY";
     rating = 0.00;
     id = 0;
-    sortStart = false;
+    //sortStart = false;
     
 }
 //Parameterized Constructor

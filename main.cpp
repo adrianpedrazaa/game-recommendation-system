@@ -28,11 +28,11 @@ void loadData(GameList &games)
         if(ofile)
         {
             exists = true;
-            cout << "\nFile Loaded";
+            cout << "\nFile Loading\n";
         }
         else
         {
-            cout << "\nFile Not Found";
+            cout << "\nFile Not Found\n";
         }
     }
 
@@ -85,6 +85,7 @@ void loadData(GameList &games)
         ++id;
     }
     ofile.close();
+    cout << "\nFile loaded\n";
 
     //Temp to test
     /*for(unsigned int i = 0; i < testvec.size(); ++i)
@@ -118,10 +119,8 @@ void vgamesMenu(GameList &games)
         cin >> choice;
         if(cin.fail())
         {
-            while(cin.fail())
-            {
-                cin.ignore();
-            }
+            cin.clear();
+            cin.ignore();
             cout << "\nERROR: Invalid Choice\n";
         }
         else if(choice < 1 || choice > 4)
@@ -188,10 +187,8 @@ int main()
                 cin >> choice;
                 if(cin.fail())
                 {
-                    while(cin.fail())
-                    {
-                        cin.ignore();
-                    }
+                    cin.clear();
+                    cin.ignore();
                     cout << "\nERROR: Invalid Choice\n";
                 }
                 else if(choice < 1 || choice > 3)
