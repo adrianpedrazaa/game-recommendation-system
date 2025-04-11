@@ -26,3 +26,17 @@ void GameData::print()
     }
     cout << "\nRating: " << rating;
 }
+int GameData::partition(unsigned int top, unsigned int bottom)
+{
+    unsigned int itt;
+    int pivot = tags[top].length();
+    
+}
+void GameData::vecQuickSort()
+{
+
+}
+bool GameData::vectorSearch(string genre)
+{
+
+}

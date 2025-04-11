@@ -29,7 +29,49 @@ void GameList::quicksortRating()
     alphaSorted = false;
     //Quick sort by rating
 }
-void GameList::search()
+void GameList::printList()
+{
+    GameData *nodeToPrint = head;
+    while(nodeToPrint->next != head)
+    {
+        nodeToPrint->print();
+        nodeToPrint = nodeToPrint->next;
+    }
+    nodeToPrint->print();
+
+}
+void GameList::genreSearch()
+{
+    vector<GameData*> gamestoPrint;
+    bool correct = false;
+    int choice;
+    string genre;
+    cout << "\nPlease enter a genre to view: ";
+    cin >> genre;
+    while(correct == false)
+    {
+        cout << "\nWould you like to see games by"
+            << "\n1:Rating"
+            << "\n2:Alphabetically"
+            << "\n:";
+        cin >> choice;
+        if(cin.fail())
+        {
+            cin.ignore();
+            cout << "\nERROR: Invalid Choice\n";
+        }
+        else if(choice < 1 || choice > 2)
+        {
+            cout << "\nERROR: Invalid Choice\n";
+        }
+        else
+        {
+            correct = true;
+        }
+        
+    }
+}
+void GameList::nameSearch()
 {
 
     string gameName;

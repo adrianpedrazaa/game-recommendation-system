@@ -96,11 +96,48 @@ void loadData(GameList &games)
 }
 void vgamesMenu(GameList &games)
 {
-    cout << "\nPlease enter the number of your selection"
-         << "\n1:View games by rating"
-         << "\n2:View games alphabetically"
-         << "\n3:View games by a genre"
-         << ": ";
+    int selection; 
+    bool correct = false;
+    while(correct == false)
+    {
+        cout << "\nPlease enter the number of your selection"
+            << "\n1:View games by rating"
+            << "\n2:View games alphabetically"
+            << "\n3:View games by a genre"
+            << "\n4:Search for game"
+            << "\n: ";
+        cin >> selection;
+        if(cin.fail())
+        {
+            cin.ignore();
+            cout << "\nERROR: Invalid choice\n";
+        }
+        else
+        {
+            correct = true;
+        }
+    }
+    switch(selection)
+    {
+        case 1:
+            if(games.alphaSorted == true)
+            {
+                games.quicksortRating();
+            }
+            games.printList();
+        break;
+        case 2:
+            if(games.alphaSorted == false)
+            {
+                games.quicksortAlph();
+            }
+            games.printList();
+        case 3:
+        
+            
+            
+    }
+
 }
 int main()
 {
@@ -113,9 +150,8 @@ int main()
     {   
         cout << "\nPlease enter the number of your selection\n"
              << "1: Load data set\n" 
-             << "2: View games\n"
-             << "3: Search for game by name\n"            
-             << "4: Quit\n"
+             << "2: View games\n"            
+             << "3: Quit\n"
              << ": ";
         cin >> selection;
         switch(selection)

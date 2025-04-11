@@ -3,6 +3,9 @@ class GameData
 {
     public:
     void print();
+    bool vectorSearch(string);
+    void vecQuickSort();
+    int partition(unsigned int, unsigned int);
     GameData();
     GameData(int, string, vector<string>, float);
     GameData *next;

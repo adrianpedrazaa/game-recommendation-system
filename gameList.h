@@ -10,7 +10,9 @@ class GameList
     ~GameList();
     void quicksortAlph();
     void quicksortRating();
-    void search();
+    void printList();
+    void genreSearch();
+    void nameSearch();
     void push_front(GameData* p);
     bool alphaSorted;
 };
