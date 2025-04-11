@@ -6,6 +6,8 @@ GameData::GameData()
     rating = 0.00;
     id = 0;
     //sortStart = false;
+    next = NULL;
+    previous = NULL;
     
 }
 //Parameterized Constructor

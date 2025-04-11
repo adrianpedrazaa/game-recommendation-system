@@ -16,7 +16,10 @@ GameList::~GameList()
     {
         delete toDelete;
         toDelete = next;
-        next = toDelete->next;
+        if(next != tail)
+        {
+            next = toDelete->next;
+        }
         --size;
     }
     cout << "\nNodes Deleted";
