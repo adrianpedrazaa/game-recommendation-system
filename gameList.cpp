@@ -161,3 +161,25 @@ void GameList::push_front(GameData *newnode)
     }
     ++size;
 }
+
+//swap any 2 lists of the doubly linked list
+void swapGames(GameData* i, GameData* j)
+{
+    GameData* temp_i_next = i->next;
+    GameData* temp_j_next = j->next;
+
+    GameData* temp_i_previous = i->previous;
+    GameData* temp_j_previous = j->previous;
+    
+    i->next = temp_j_next;
+    i->previous = temp_j_previous;
+
+    j->next = temp_i_next;
+    j->previous = temp_i_previous;
+
+    j->previous->next = j;
+    j->next->previous = j;
+
+    i->previous->next = i;
+    i->next->previous = i;
+}
