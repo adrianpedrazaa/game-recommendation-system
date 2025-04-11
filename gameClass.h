@@ -4,7 +4,7 @@ class GameData
     public:
     void print();
     //Not worth using
-    //bool vectorSearch(string);
+    bool vectorSearch(string);
     //void vecQuickSort(unsigned int, unsigned int);
     //unsigned int partition(unsigned int, unsigned int);
     GameData();
