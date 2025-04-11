@@ -1,4 +1,5 @@
 #include "gameList.h"
+//Default constructor
 GameList::GameList()
 {
     size = 0;
@@ -6,6 +7,7 @@ GameList::GameList()
     tail = NULL;
     alphaSorted = true;
 }
+//Destructor 
 GameList::~GameList()
 {
     GameData *toDelete = head;
@@ -29,6 +31,7 @@ void GameList::quicksortRating()
     alphaSorted = false;
     //Quick sort by rating
 }
+//Prints all nodes in the list
 void GameList::printList()
 {
     GameData *nodeToPrint = head;
@@ -40,14 +43,17 @@ void GameList::printList()
     nodeToPrint->print();
 
 }
+//Searches for games of a certain tag and displays them
 void GameList::genreSearch()
 {
     GameData *nodetoCheck = head;
     bool correct = false;
     int choice;
     string genre;
+    //Get genre from user
     cout << "\nPlease enter a genre to view: ";
     cin >> genre;
+    //Loops until valid choice is entered
     while(correct == false)
     {
         cout << "\nWould you like to see games by"
@@ -72,28 +78,38 @@ void GameList::genreSearch()
             correct = true;
         }
     }
+    //Calls rating sort if needed
     if(choice == 1 && alphaSorted == true)
     {
         quicksortRating();
     }
+    //Calls alpha sorting if needed
     else if(choice == 2 && alphaSorted == false)
     {
         quicksortAlph();
     }
-    do
-    {
+    //Checks all but last node for genre type
+    while(nodetoCheck->next != head){
         if(nodetoCheck->vectorSearch(genre) == true)
         {
             nodetoCheck->print();
             correct = false;
         }
         nodetoCheck = nodetoCheck->next;
-    }while(nodetoCheck->next != head);
+    }
+    //Checks last node for genre
+    if(nodetoCheck->vectorSearch(genre) == true)
+    {
+        nodetoCheck->print();
+        correct = false;
+    }
+    //Displays message if no games of genre found
     if(correct == true)
     {
         cout << "\nNo games of genre: " << genre << " found.\n";
     }
 }
+//Searches for game named by the user
 void GameList::nameSearch()
 {
 
@@ -109,6 +125,7 @@ void GameList::nameSearch()
 
 
 }
+//Pushes new nodes to the front of the list
 void GameList::push_front(GameData *newnode)
 {
     GameData *oldhead;

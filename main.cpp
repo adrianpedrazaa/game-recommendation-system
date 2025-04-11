@@ -1,6 +1,7 @@
 #include "headers.h"
 #include "gameList.h"
 using namespace std;
+//Function for loading in file
 void loadData(GameList &games)
 {
 
@@ -18,6 +19,7 @@ void loadData(GameList &games)
     //Test
     //vector<GameData*> testvec;
     
+    //Loops until a valid file is entered
     while(exists == false)
     {
         cout << "\nPlease enter the file name: ";
@@ -34,10 +36,13 @@ void loadData(GameList &games)
         }
     }
 
+    //Populates Linked list with games from file
     while(!ofile.eof())
     {
         comCount = 0;
         getline(ofile, line);
+        
+        //Stores .CSV file values based on the number of commas encounterd
         for(int i = 0; i < line.length(); ++i)
         {
             if(line[i] != ',')
@@ -67,14 +72,16 @@ void loadData(GameList &games)
                 capt = "";
             }
         }
-        //Create gameClass object and store in hash table
-        //Add code
+        //Creates Gamedata object and stores in Linked List
         games.push_front(new GameData(id, gName, gTags, gRate));
+       
         //temp to test
         //testvec.push_back(new GameData(id, gName, gTags, gRate));
 
         //Reset temp Variables increment id
         //gTags.clear();
+
+        //Game ID incremented
         ++id;
     }
     ofile.close();
@@ -94,10 +101,12 @@ void loadData(GameList &games)
     testvec.clear();
     */
 }
+//Function for the games menu to make main prettier
 void vgamesMenu(GameList &games)
 {
     int choice; 
     bool correct = false;
+    //Loops until valid choice is entered
     while(correct == false)
     {
         cout << "\nPlease enter the number of your selection"
@@ -124,8 +133,10 @@ void vgamesMenu(GameList &games)
             correct = true;
         }
     }
+    //Switch for user's choice
     switch(choice)
     {
+        //Prints list thats sorted by rating
         case 1:
             if(games.alphaSorted == true)
             {
@@ -133,6 +144,7 @@ void vgamesMenu(GameList &games)
             }
             games.printList();
         break;
+        //Prints list thats sorted alphabetically
         case 2:
             if(games.alphaSorted == false)
             {
@@ -140,9 +152,11 @@ void vgamesMenu(GameList &games)
             }
             games.printList();
         break;
+        //Calls Genre search function -> allows user to search list for a genre and displays games of that type
         case 3:
             games.genreSearch();
         break;  
+        //Sorts games alphabetically and allows user to view a specific title
         case 4:
             if(games.alphaSorted == false)
             {
@@ -159,8 +173,11 @@ int main()
     int choice;
     bool quit = false;
     bool correct = false;
+    
+    //Loops until user types 3 to quit program
     while(quit == false)
     {   
+        //Loops until a valid choice is entered
         while(correct == false)
         {
             cout << "\nPlease enter the number of your selection\n"
@@ -186,18 +203,23 @@ int main()
                     correct = true;
                 }
             }
+        //Switch for users choice
         switch(choice)
         {
+            //Loads data file
             case 1:
                 loadData(games);
             break;
+            //Opens the view games menu 
             case 2:
                 vgamesMenu(games);
             break;
+            //Quits program
             case 3:
                 quit = true;
             break;
         }
+        //Re-enables Bad user while loop 
         correct = false;
     }
     return 0;    

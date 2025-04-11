@@ -1,4 +1,5 @@
 #include "gameClass.h"
+//Default Constructor shouldn't ever be used
 GameData::GameData()
 {
     name = "EMPTY";
@@ -7,6 +8,7 @@ GameData::GameData()
     sortStart = false;
     
 }
+//Parameterized Constructor
 GameData::GameData(int ids, string nam, vector<string> tVec, float rat)
 {
     id = ids;
@@ -14,6 +16,7 @@ GameData::GameData(int ids, string nam, vector<string> tVec, float rat)
     tags = tVec;
     rating = rat;
 }
+//Print nodes data
 void GameData::print()
 {
     cout << "\nId: " << id
@@ -29,6 +32,23 @@ void GameData::print()
     }
     cout << "\nRating: " << rating;
 }
+
+//Returns true if genre is found
+//Linear search strings are hard to quick sort and 
+//binary search plus its not really worth it with how few genres each game would have
+bool GameData::vectorSearch(string genre)
+{
+    for(unsigned int i = 0; i < tags.size(); ++i)
+    {
+        if(tags[i] == genre)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 /* to complicated for such a small amount of data
 unsigned int GameData::partition(unsigned int top, unsigned int bottom)
 {
@@ -67,14 +87,3 @@ void GameData::vecQuickSort(unsigned int top, unsigned int bottom)
         vecQuickSort(pivot + 1, top);
     }
 } */
-bool GameData::vectorSearch(string genre)
-{
-    for(unsigned int i = 0; i < tags.size(); ++i)
-    {
-        if(tags[i] == genre)
-        {
-            return true;
-        }
-    }
-    return false;
-}
