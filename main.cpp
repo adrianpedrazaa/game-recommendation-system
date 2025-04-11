@@ -145,10 +145,11 @@ void vgamesMenu(GameList &games)
         break;
         //Prints list thats sorted alphabetically
         case 2:
-            if(games.alphaSorted == false)
-            {
-                games.quicksortAlph();
-            }
+            // if(games.alphaSorted == false)
+            // {
+            //     games.sort();
+            // }
+            cout << "hello" << endl;
             games.printList();
         break;
         //Calls Genre search function -> allows user to search list for a genre and displays games of that type

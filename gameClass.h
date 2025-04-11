@@ -18,9 +18,11 @@ class GameData
     //Node Pointers
     GameData *next;
     GameData *previous;
+    
+    string name;            //Game name from .CSV
     private:
         int id;                 //Game ID assigned at file loading
-        string name;            //Game name from .CSV
+        
         vector<string> tags;    //Vector of games tags 
         float rating;           //Game rating from .CSV
         

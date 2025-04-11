@@ -12,6 +12,8 @@ class GameList
     //Deconstructor deletes all nodes
     ~GameList();
     //Sorts games alphabetically
+    void alphasort();
+    void swapGames(GameData* i, GameData* j);
     void quicksortAlph();
     //Sorts games by rating
     void quicksortRating();

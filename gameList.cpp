@@ -162,8 +162,41 @@ void GameList::push_front(GameData *newnode)
     ++size;
 }
 
+void GameList::alphasort()
+{   
+    GameData* outer_loop_ptr = head;
+    GameData* inner_loop_ptr = head;
+    GameData* start_of_unsorted_portion = head;
+    while(outer_loop_ptr != NULL)
+    {
+        GameData* min_elem_ptr = start_of_unsorted_portion;
+        inner_loop_ptr = start_of_unsorted_portion;
+
+        // loop through unsorted_start -> end, find smallest element
+        while (inner_loop_ptr != NULL)
+        {   
+            // if current elem's name is alphabetically before the min_elem, min elem = current elem
+            int comparison = inner_loop_ptr->name.compare(min_elem_ptr->name);
+            if (comparison < 0) {
+                min_elem_ptr = inner_loop_ptr;
+            }
+
+            inner_loop_ptr = inner_loop_ptr->next;
+        }
+
+        // swap smallest element with unsorted_start
+        swapGames(min_elem_ptr, start_of_unsorted_portion);
+        // unsorted start = smallest->next
+        start_of_unsorted_portion = min_elem_ptr->next;
+
+        outer_loop_ptr = outer_loop_ptr->next;
+    }
+    alphaSorted = true;
+}
+
+
 //swap any 2 lists of the doubly linked list
-void swapGames(GameData* i, GameData* j)
+void GameList::swapGames(GameData* i, GameData* j)
 {
     GameData* temp_i_next = i->next;
     GameData* temp_j_next = j->next;
