@@ -3,9 +3,10 @@ class GameData
 {
     public:
     void print();
-    bool vectorSearch(string);
-    void vecQuickSort();
-    int partition(unsigned int, unsigned int);
+    //Not worth using
+    //bool vectorSearch(string);
+    //void vecQuickSort(unsigned int, unsigned int);
+    //unsigned int partition(unsigned int, unsigned int);
     GameData();
     GameData(int, string, vector<string>, float);
     GameData *next;
@@ -15,6 +16,7 @@ class GameData
         string name;
         vector<string> tags;
         float rating;
+        bool sortStart;
 
         
 };

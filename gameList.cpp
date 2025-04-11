@@ -42,7 +42,7 @@ void GameList::printList()
 }
 void GameList::genreSearch()
 {
-    vector<GameData*> gamestoPrint;
+    GameData *nodetoCheck = head;
     bool correct = false;
     int choice;
     string genre;
@@ -57,7 +57,10 @@ void GameList::genreSearch()
         cin >> choice;
         if(cin.fail())
         {
-            cin.ignore();
+            while(cin.fail())
+            {
+                cin.ignore();
+            }
             cout << "\nERROR: Invalid Choice\n";
         }
         else if(choice < 1 || choice > 2)
@@ -68,7 +71,27 @@ void GameList::genreSearch()
         {
             correct = true;
         }
-        
+    }
+    if(choice == 1 && alphaSorted == true)
+    {
+        quicksortRating();
+    }
+    else if(choice == 2 && alphaSorted == false)
+    {
+        quicksortAlph();
+    }
+    do
+    {
+        if(nodetoCheck->vectorSearch(genre) == true)
+        {
+            nodetoCheck->print();
+            correct = false;
+        }
+        nodetoCheck = nodetoCheck->next;
+    }while(nodetoCheck->next != head);
+    if(correct == true)
+    {
+        cout << "\nNo games of genre: " << genre << " found.\n";
     }
 }
 void GameList::nameSearch()
@@ -77,7 +100,7 @@ void GameList::nameSearch()
     string gameName;
     cout << "\nPlease enter a game you want to view: ";
     cin >> gameName;
-    //Quick Search for game by name by alpha
+    //Binary Search for game by name by alpha
     if(alphaSorted == false)
     {
         quicksortAlph();

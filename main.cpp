@@ -96,7 +96,7 @@ void loadData(GameList &games)
 }
 void vgamesMenu(GameList &games)
 {
-    int selection; 
+    int choice; 
     bool correct = false;
     while(correct == false)
     {
@@ -104,20 +104,30 @@ void vgamesMenu(GameList &games)
             << "\n1:View games by rating"
             << "\n2:View games alphabetically"
             << "\n3:View games by a genre"
-            << "\n4:Search for game"
+            << "\n4:Search for game by name"
             << "\n: ";
-        cin >> selection;
-        if(cin.fail())
+        cin >> choice;
+        while(correct == false)
         {
-            cin.ignore();
-            cout << "\nERROR: Invalid choice\n";
-        }
-        else
-        {
-            correct = true;
+            if(cin.fail())
+            {
+                while(cin.fail())
+                {
+                    cin.ignore();
+                }
+                cout << "\nERROR: Invalid Choice\n";
+            }
+            else if(choice < 1 || choice > 4)
+            {
+                cout << "\nERROR: Invalid Choice\n";
+            }
+            else
+            {
+                correct = true;
+            }
         }
     }
-    switch(selection)
+    switch(choice)
     {
         case 1:
             if(games.alphaSorted == true)
@@ -132,10 +142,16 @@ void vgamesMenu(GameList &games)
                 games.quicksortAlph();
             }
             games.printList();
+        break;
         case 3:
-        
-            
-            
+            games.genreSearch();
+        break;  
+        case 4:
+            if(games.alphaSorted == false)
+            {
+                games.quicksortAlph();
+            }
+            games.nameSearch();
     }
 
 }
@@ -143,18 +159,37 @@ int main()
 {
     GameList games;
     string aFile;
-    int selection;
+    int choice;
     bool quit = false;
-    bool exists = false;
+    bool correct = false;
     while(quit == false)
     {   
-        cout << "\nPlease enter the number of your selection\n"
-             << "1: Load data set\n" 
-             << "2: View games\n"            
-             << "3: Quit\n"
-             << ": ";
-        cin >> selection;
-        switch(selection)
+        while(correct == false)
+        {
+            cout << "\nPlease enter the number of your selection\n"
+                << "1: Load data set\n" 
+                << "2: View games\n"            
+                << "3: Quit\n"
+                << ": ";
+                cin >> choice;
+                if(cin.fail())
+                {
+                    while(cin.fail())
+                    {
+                        cin.ignore();
+                    }
+                    cout << "\nERROR: Invalid Choice\n";
+                }
+                else if(choice < 1 || choice > 3)
+                {
+                    cout << "\nERROR: Invalid Choice\n";
+                }
+                else
+                {
+                    correct = true;
+                }
+            }
+        switch(choice)
         {
             case 1:
                 loadData(games);
@@ -162,12 +197,10 @@ int main()
             case 2:
                 vgamesMenu(games);
             break;
-            case 4:
+            case 3:
                 quit = true;
             break;
         }
-
-
     }
     return 0;    
 }
