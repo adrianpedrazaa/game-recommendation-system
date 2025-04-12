@@ -13,9 +13,9 @@ class GameList
     ~GameList();
     //Sorts games alphabetically
     void swapGames(GameData* i, GameData* j);
-    void quicksortAlph();
+    void selectsortAlph();
     //Sorts games by rating
-    void quicksortRating();
+    void selectsortRating();
     //Prints all nodes in list
     void printList();
     //Searches games for genre and prints games of that type

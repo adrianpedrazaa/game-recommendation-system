@@ -138,12 +138,12 @@ void vgamesMenu(GameList &games)
         //Prints list thats sorted by rating
         case 1:
             cout << "sorting by rating" << endl;
-            games.quicksortRating();
+            games.selectsortRating();
             games.printList();
         break;
         //Prints list thats sorted alphabetically
         case 2:
-            games.quicksortAlph();
+            games.selectsortAlph();
             games.printList();
         break;
         //Calls Genre search function -> allows user to search list for a genre and displays games of that type
@@ -154,7 +154,7 @@ void vgamesMenu(GameList &games)
         case 4:
             if(games.alphaSorted == false)
             {
-                games.quicksortAlph();
+                games.selectsortAlph();
             }
             games.nameSearch();
             break;

@@ -24,7 +24,7 @@ GameList::~GameList()
     }
     cout << "\nNodes Deleted";
 }
-void GameList::quicksortRating()
+void GameList::selectsortRating()
 {   
     alphaSorted = false;
     //Quick sort by rating
@@ -128,12 +128,12 @@ void GameList::genreSearch()
     //Calls rating sort if needed
     if(choice == 1 && alphaSorted == true)
     {
-        quicksortRating();
+        selectsortRating();
     }
     //Calls alpha sorting if needed
     else if(choice == 2 && alphaSorted == false)
     {
-        quicksortAlph();
+        selectsortAlph();
     }
     //Checks all but last node for genre type
     //Test
@@ -178,7 +178,7 @@ void GameList::nameSearch()
     //Binary Search for game by name by alpha
     if(alphaSorted == false)
     {
-        quicksortAlph();
+        selectsortAlph();
     }
     //Search goes here
 
@@ -210,7 +210,7 @@ void GameList::push_front(GameData *newnode)
 
 
 
-void GameList::quicksortAlph()
+void GameList::selectsortAlph()
 {   
     GameData* outer_loop_ptr = head;
 
