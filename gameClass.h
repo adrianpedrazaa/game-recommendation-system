@@ -19,13 +19,11 @@ class GameData
     GameData *next;
     GameData *previous;
     
+    float rating;           //Game rating from .CSV
     string name;            //Game name from .CSV
     private:
         int id;                 //Game ID assigned at file loading
-        
         vector<string> tags;    //Vector of games tags 
-        float rating;           //Game rating from .CSV
-        
         //bool sortStart;        
 
         
