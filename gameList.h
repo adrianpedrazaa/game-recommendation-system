@@ -25,6 +25,7 @@ class GameList
     void nameSearch();
     //Pushes new nodes to the front of the list
     void push_front(GameData* p);
+    //void vectorSort();
     //Bool to avoid sorting if not needed true = Alpha sorted, false = rating sorted
     bool alphaSorted;
 };

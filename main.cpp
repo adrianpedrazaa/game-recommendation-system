@@ -86,7 +86,7 @@ void loadData(GameList &games)
     }
     ofile.close();
     cout << "\nFile loaded\n";
-
+    //games.vectorSort();
     //Temp to test
     /*for(unsigned int i = 0; i < testvec.size(); ++i)
     {

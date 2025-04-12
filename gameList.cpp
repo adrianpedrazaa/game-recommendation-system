@@ -46,6 +46,18 @@ void GameList::printList()
     nodeToPrint->print();
 
 }
+/*void GameList::vectorSort()
+{
+    GameData *nodeToSort = head;
+    while(nodeToSort->next != head)
+    {
+        nodeToSort->vecQuickSort(1, 0);
+        nodeToSort->print();
+        nodeToSort = nodeToSort->next;
+    }
+    nodeToSort->vecQuickSort(1, 0);
+
+}*/
 //Searches for games of a certain tag and displays them
 void GameList::genreSearch()
 {

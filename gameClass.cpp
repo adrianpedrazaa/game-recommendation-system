@@ -5,7 +5,7 @@ GameData::GameData()
     name = "EMPTY";
     rating = 0.00;
     id = 0;
-    //sortStart = false;
+    sortStart = false;
     next = NULL;
     previous = NULL;
     
@@ -50,17 +50,15 @@ bool GameData::vectorSearch(string genre)
     }
     return found;
 }
-
-
 /* to complicated for such a small amount of data
 unsigned int GameData::partition(unsigned int top, unsigned int bottom)
 {
     string toSwap;
     unsigned int swapps = bottom - 1;
-    int pivot = tags[top].length();
+    string pivot = tags[top];
     for(unsigned int itter = bottom; itter < top; ++itter)
     {
-        if(tags[itter].length() <= pivot)
+        if(tags[itter] < pivot)
         {
             ++swapps;
             toSwap = tags[swapps];
@@ -73,8 +71,6 @@ unsigned int GameData::partition(unsigned int top, unsigned int bottom)
     tags[top] = toSwap; 
     return (swapps + 1);
 }
-*/
-/* Not worth using  
 void GameData::vecQuickSort(unsigned int top, unsigned int bottom)
 {
     if(bottom < top)
@@ -82,11 +78,11 @@ void GameData::vecQuickSort(unsigned int top, unsigned int bottom)
         if(sortStart == false)
         {
             sortStart = true;
-            top = sizeof(tags) / sizeof(tags[0]);
+            top = tags.size() - 1;
             bottom = 0;
         }
         unsigned int  pivot = partition(top, bottom);
-        vecQuickSort(bottom, pivot - 1);
-        vecQuickSort(pivot + 1, top);
+        vecQuickSort(pivot - 1, bottom);
+        vecQuickSort(top, pivot + 1);
     }
 } */

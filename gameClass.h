@@ -7,10 +7,10 @@ class GameData
     //Searches linearly to see if vector holds genre
     bool vectorSearch(string);
     
-    //Not worth using kept just in case
-    //void vecQuickSort(unsigned int, unsigned int);
-    //unsigned int partition(unsigned int, unsigned int);
-    
+    /*Not worth using kept just in case
+    void vecQuickSort(unsigned int, unsigned int);
+    unsigned int partition(unsigned int, unsigned int);
+    */
     //Default Constructor
     GameData();
     //Parameterized Constructor
@@ -22,11 +22,10 @@ class GameData
     string name;            //Game name from .CSV
     private:
         int id;                 //Game ID assigned at file loading
-        
         vector<string> tags;    //Vector of games tags 
         float rating;           //Game rating from .CSV
         
-        //bool sortStart;        
+        bool sortStart;        
 
         
 };
