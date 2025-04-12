@@ -24,15 +24,60 @@ GameList::~GameList()
     }
     cout << "\nNodes Deleted";
 }
-void GameList::quicksortAlph()
-{
-    alphaSorted = true;
-    //Quick sort list by alphabet
-}
-void GameList::quicksortRating()
+void GameList::selectsortRating()
 {   
     alphaSorted = false;
     //Quick sort by rating
+
+    GameData* outer_loop_ptr = head;
+
+    int i = 0;
+    int j = 0;
+
+    bool outer_cond = true;
+
+    while(outer_cond)
+    {
+        cout << "outer is " << outer_loop_ptr->name << endl;
+
+        GameData* min_elem_ptr = outer_loop_ptr;
+        GameData* inner_loop_ptr = outer_loop_ptr;
+        //cout << "min is " << min_elem_ptr->name << endl;
+
+        // loop through unsorted_start -> end, find smallest element
+        bool inner_cond = true;
+        while (inner_cond)
+        {   
+            //cout << "inner_loop_ptr->name is " << inner_loop_ptr->name << endl;
+            // if current elem's name is alphabetically before the min_elem, min elem = current elem
+            if (inner_loop_ptr->rating > (min_elem_ptr->rating)) {
+                min_elem_ptr = inner_loop_ptr;
+                //cout << "min is " << min_elem_ptr->name << endl;
+            }
+
+            if (inner_loop_ptr->next == head) {
+                inner_cond = false;
+            } else {
+                inner_loop_ptr = inner_loop_ptr->next;
+            }
+            j++;
+        }
+
+        // swap smallest element with unsorted_start
+        //cout << "swap" << endl;
+        swapGames(min_elem_ptr, outer_loop_ptr);
+        // unsorted start = smallest->next
+        outer_loop_ptr = min_elem_ptr->next;
+        
+
+        if (outer_loop_ptr->next == head) {
+            outer_cond = false;
+        }
+        i++;
+
+        // outer_cond = false;
+    }
+    cout << "sorted with " << i << ", " << j << " iterations" << endl;
 }
 //Prints all nodes in the list
 void GameList::printList()
@@ -42,6 +87,7 @@ void GameList::printList()
     {
         nodeToPrint->print();
         nodeToPrint = nodeToPrint->next;
+        if(nodeToPrint->next == nodeToPrint) { cout << "infinite loop :(" << endl; break; }
     }
     nodeToPrint->print();
 
@@ -94,12 +140,12 @@ void GameList::genreSearch()
     //Calls rating sort if needed
     if(choice == 1 && alphaSorted == true)
     {
-        quicksortRating();
+        selectsortRating();
     }
     //Calls alpha sorting if needed
     else if(choice == 2 && alphaSorted == false)
     {
-        quicksortAlph();
+        selectsortAlph();
     }
     //Checks all but last node for genre type
     //Test
@@ -144,7 +190,7 @@ void GameList::nameSearch()
     //Binary Search for game by name by alpha
     if(alphaSorted == false)
     {
-        quicksortAlph();
+        selectsortAlph();
     }
     //Search goes here
 
@@ -174,57 +220,102 @@ void GameList::push_front(GameData *newnode)
     ++size;
 }
 
-void GameList::alphasort()
+
+
+void GameList::selectsortAlph()
 {   
     GameData* outer_loop_ptr = head;
-    GameData* inner_loop_ptr = head;
-    GameData* start_of_unsorted_portion = head;
-    while(outer_loop_ptr != NULL)
+
+    int i = 0;
+    int j = 0;
+
+    bool outer_cond = true;
+
+    while(outer_cond)
     {
-        GameData* min_elem_ptr = start_of_unsorted_portion;
-        inner_loop_ptr = start_of_unsorted_portion;
+        cout << "outer is " << outer_loop_ptr->name << endl;
+
+        GameData* min_elem_ptr = outer_loop_ptr;
+        GameData* inner_loop_ptr = outer_loop_ptr;
+        //cout << "min is " << min_elem_ptr->name << endl;
 
         // loop through unsorted_start -> end, find smallest element
-        while (inner_loop_ptr != NULL)
+        bool inner_cond = true;
+        while (inner_cond)
         {   
+            //cout << "inner_loop_ptr->name is " << inner_loop_ptr->name << endl;
             // if current elem's name is alphabetically before the min_elem, min elem = current elem
             int comparison = inner_loop_ptr->name.compare(min_elem_ptr->name);
             if (comparison < 0) {
                 min_elem_ptr = inner_loop_ptr;
+                //cout << "min is " << min_elem_ptr->name << endl;
             }
 
-            inner_loop_ptr = inner_loop_ptr->next;
+            if (inner_loop_ptr->next == head) {
+                inner_cond = false;
+            } else {
+                inner_loop_ptr = inner_loop_ptr->next;
+            }
+            j++;
         }
 
         // swap smallest element with unsorted_start
-        swapGames(min_elem_ptr, start_of_unsorted_portion);
+        //cout << "swap" << endl;
+        swapGames(min_elem_ptr, outer_loop_ptr);
         // unsorted start = smallest->next
-        start_of_unsorted_portion = min_elem_ptr->next;
+        outer_loop_ptr = min_elem_ptr->next;
+        
 
-        outer_loop_ptr = outer_loop_ptr->next;
+        if (outer_loop_ptr->next == head) {
+            outer_cond = false;
+        }
+        i++;
+
+        // outer_cond = false;
     }
     alphaSorted = true;
+    cout << "sorted with " << i << ", " << j << " iterations" << endl;
 }
 
 
 //swap any 2 lists of the doubly linked list
-void GameList::swapGames(GameData* i, GameData* j)
-{
+void GameList::swapGames(GameData* i, GameData* j) {
+    if (i == j) { return; }
+
+    //also change head and tail pointers if needed
+    if(i == head) { head = j; }
+    else if(j == head) { head = i; }
+    if(i == tail) { tail = j; }
+    else if(j == tail) { tail = i; }
+
+    //makes it so the code for i after j can be the same as j after i
+    if (j->next == i) {
+        GameData* temp = i;
+        i = j;
+        j = temp;
+    }
+
+    GameData* temp_i_prev = i->previous;
+    GameData* temp_j_prev = j->previous;
     GameData* temp_i_next = i->next;
     GameData* temp_j_next = j->next;
 
-    GameData* temp_i_previous = i->previous;
-    GameData* temp_j_previous = j->previous;
+    if (i->next == j) {
+        //pointers need to be swapped differently if i and j are adjacent
+        i->previous = temp_i_next;
+        j->previous = temp_i_prev;
+        i->next = temp_j_next;
+        j->next = temp_j_prev;
+    } else {
+        i->previous = temp_j_prev;
+        j->previous = temp_i_prev;
+        i->next = temp_j_next;
+        j->next = temp_i_next;
+    }
+
+    if (i->previous != NULL) { i->previous->next = i; }
+    if (i->next != NULL) { i->next->previous = i; }
     
-    i->next = temp_j_next;
-    i->previous = temp_j_previous;
-
-    j->next = temp_i_next;
-    j->previous = temp_i_previous;
-
-    j->previous->next = j;
-    j->next->previous = j;
-
-    i->previous->next = i;
-    i->next->previous = i;
+    if (j->previous != NULL) { j->previous->next = j; }
+    if (j->next != NULL) { j->next->previous = j; }
 }
